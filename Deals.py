@@ -30,15 +30,17 @@ def deals():
 
 # send new Deal with link to the Mail
 def send_email(link, headline):
+    EMAIL_ADDRESS = os.environ['EMAIL_ADDRESS']
+    EMAIL_PASSWORD = os.environ['EMAIL_PASSWORD']
     msg = EmailMessage()
     msg["Subject"] = "PCgamer Hardware Update"
-    msg["From"] = "Email address"  # Sender Mail goes here
+    msg["From"] = EMAIL_ADDRESS  # Sender Mail goes here
     msg["To"] = "Email address"  # receiver Mail goes here
     msg.set_content("New Deals available on PCgamer! \n\n" + headline + "\n\n" + link)
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
 
-        smtp.login("email address", "email password")  # login to your gmail
+        smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)  # login to your gmail
 
         smtp.send_message(msg)
 
